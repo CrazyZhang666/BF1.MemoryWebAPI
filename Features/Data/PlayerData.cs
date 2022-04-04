@@ -18,8 +18,8 @@ public class PlayerData
     public int Dead { get; set; }
     public int Score { get; set; }
 
-    public float KD { get; set; }
-    public float KPM { get; set; }
+    public string KD { get; set; }
+    public string KPM { get; set; }
 
     public string WeaponS0 { get; set; }
     public string WeaponS1 { get; set; }

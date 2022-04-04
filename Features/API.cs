@@ -114,17 +114,17 @@ public static class API
                             Dead = 0,
                             Score = 0,
 
-                            KD = 0.00f,
-                            KPM = 0.00f,
+                            KD = "0.00",
+                            KPM = "0.00",
 
-                            WeaponS0 = _weaponSlot[0],
-                            WeaponS1 = _weaponSlot[1],
-                            WeaponS2 = _weaponSlot[2],
-                            WeaponS3 = _weaponSlot[3],
-                            WeaponS4 = _weaponSlot[4],
-                            WeaponS5 = _weaponSlot[5],
-                            WeaponS6 = _weaponSlot[6],
-                            WeaponS7 = _weaponSlot[7],
+                            WeaponS0 = PlayerUtil.GetWeaponChsName(_weaponSlot[0]),
+                            WeaponS1 = PlayerUtil.GetWeaponChsName(_weaponSlot[1]),
+                            WeaponS2 = PlayerUtil.GetWeaponChsName(_weaponSlot[2]),
+                            WeaponS3 = PlayerUtil.GetWeaponChsName(_weaponSlot[3]),
+                            WeaponS4 = PlayerUtil.GetWeaponChsName(_weaponSlot[4]),
+                            WeaponS5 = PlayerUtil.GetWeaponChsName(_weaponSlot[5]),
+                            WeaponS6 = PlayerUtil.GetWeaponChsName(_weaponSlot[6]),
+                            WeaponS7 = PlayerUtil.GetWeaponChsName(_weaponSlot[7]),
                         });
                     }
                 }
@@ -156,8 +156,8 @@ public static class API
                         PlayerList_All[index].Kill = _kill;
                         PlayerList_All[index].Dead = _dead;
                         PlayerList_All[index].Score = _score;
-                        PlayerList_All[index].KD = PlayerUtil.GetPlayerKD(_kill, _dead);
-                        PlayerList_All[index].KPM = PlayerUtil.GetPlayerKPM(_kill, PlayerUtil.SecondsToMM(_serverTime));
+                        PlayerList_All[index].KD = PlayerUtil.GetPlayerKD(_kill, _dead).ToString("0.00");
+                        PlayerList_All[index].KPM = PlayerUtil.GetPlayerKPM(_kill, PlayerUtil.SecondsToMM(_serverTime)).ToString("0.00");
                     }
                 }
 

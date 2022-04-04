@@ -1,6 +1,8 @@
-﻿namespace BF1.MemoryWebAPI.Features.Utils;
+﻿using BF1.MemoryWebAPI.Features.Data;
 
-public class PlayerUtil
+namespace BF1.MemoryWebAPI.Features.Utils;
+
+public static class PlayerUtil
 {
     /// <summary>
     /// 获取玩家ID或队标
@@ -157,5 +159,34 @@ public class PlayerUtil
                 return 0;
         }
         catch (Exception) { return 0; }
+    }
+
+    /// <summary>
+    /// 获取武器对应的中文名称
+    /// </summary>
+    /// <param name="originWeaponName"></param>
+    /// <returns></returns>
+    public static string GetWeaponChsName(string originWeaponName)
+    {
+        if (string.IsNullOrEmpty(originWeaponName))
+            return "";
+
+        if (originWeaponName.Contains("_KBullet"))
+            return "K 弹";
+
+        if (originWeaponName.Contains("_RGL_Frag"))
+            return "步枪手榴弹（破片）";
+
+        if (originWeaponName.Contains("_RGL_Smoke"))
+            return "步枪手榴弹（烟雾）";
+
+        if (originWeaponName.Contains("_RGL_HE"))
+            return "步枪手榴弹（高爆）";
+
+        var index = WeaponData.AllWeaponInfo.FindIndex(var => var.English == originWeaponName);
+        if (index != -1)
+            return WeaponData.AllWeaponInfo[index].Chinese;
+        else
+            return originWeaponName;
     }
 }
