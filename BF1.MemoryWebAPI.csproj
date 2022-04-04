@@ -8,11 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\Fonts\FuturaMaxiBook-TC-c3bf1e0d.ttf" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Assets\" />
+    <PackageReference Include="Chinese" Version="0.4.6" />
   </ItemGroup>
 
 </Project>

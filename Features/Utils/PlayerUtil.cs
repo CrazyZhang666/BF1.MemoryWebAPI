@@ -5,7 +5,7 @@ namespace BF1.MemoryWebAPI.Features.Utils;
 public static class PlayerUtil
 {
     /// <summary>
-    /// 获取玩家ID或队标
+    /// 获取玩家名字或队标
     /// </summary>
     public static string GetPlayerTargetName(string originalName, bool isClan)
     {
@@ -188,5 +188,29 @@ public static class PlayerUtil
             return WeaponData.AllWeaponInfo[index].Chinese;
         else
             return originWeaponName;
+    }
+
+    /// <summary>
+    /// 判断战地1输入框字符串长度，中文3，英文1
+    /// </summary>
+    /// <param name="str">需要判断的字符串</param>
+    /// <returns></returns>
+    public static int GetStrLength(string str)
+    {
+        if (string.IsNullOrEmpty(str))
+            return 0;
+
+        ASCIIEncoding ascii = new ASCIIEncoding();
+        int tempLen = 0;
+        byte[] s = ascii.GetBytes(str);
+        for (int i = 0; i < s.Length; i++)
+        {
+            if ((int)s[i] == 63)
+                tempLen += 3;
+            else
+                tempLen += 1;
+        }
+
+        return tempLen;
     }
 }
