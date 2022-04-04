@@ -129,14 +129,14 @@ public class PlayerUtil
             }
             else
             {
-                return $"00:00";
+                return "00:00";
             }
         }
-        catch (Exception) { return $"00:00"; }
+        catch (Exception) { return "00:00"; }
     }
 
     /// <summary>
-    /// 小数类型的时间秒，转为mm格式
+    /// 小数类型的时间秒，转为mm格式（分钟）
     /// </summary>
     /// <param name="time"></param>
     /// <returns></returns>
@@ -149,18 +149,12 @@ public class PlayerUtil
                 int a = (int)(time / 60);
 
                 if (a != 0)
-                {
                     return a;
-                }
                 else
-                {
                     return 0;
-                }
             }
             else
-            {
                 return 0;
-            }
         }
         catch (Exception) { return 0; }
     }

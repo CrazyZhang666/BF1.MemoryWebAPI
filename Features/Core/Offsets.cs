@@ -9,13 +9,13 @@ public static class Offsets
     ////////////////////////////////////////////////////////////////////
 
     public const int ServerName_Offset = 0x3A1F3F8;
-    public const int ServerID_Offset = 0x37FF1A0;
+    public const int GameId_Offset = 0x37FF1A0;
     public const int ServerTime_Offset = 0x3A31138;
 
     public const int ServerScore_Offset = 0x3A0FC40;
 
     public static int[] ServerName = new int[] { 0x30, 0x00 };
-    public static int[] ServerID = new int[] { 0x418 };
+    public static int[] GameId = new int[] { 0x418 };
     public static int[] ServerTime = new int[] { 0x20, 0x38, 0x58, 0x20 };
 
     public static int[] ServerScoreTeam = new int[] { 0x58, 0x18, 0x08 };

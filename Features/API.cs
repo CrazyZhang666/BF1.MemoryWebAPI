@@ -8,12 +8,12 @@ public static class API
 {
     private const int MaxPlayer = 74;
 
-    private static List<PlayerData> PlayerList_All = new List<PlayerData>();
-    private static List<PlayerData> PlayerList_Team0 = new List<PlayerData>();
-    private static List<PlayerData> PlayerList_Team1 = new List<PlayerData>();
-    private static List<PlayerData> PlayerList_Team2 = new List<PlayerData>();
+    private static List<PlayerData> PlayerList_All = new();
+    private static List<PlayerData> PlayerList_Team0 = new();
+    private static List<PlayerData> PlayerList_Team1 = new();
+    private static List<PlayerData> PlayerList_Team2 = new();
 
-    public static string GetPlayerList()
+    public static object GetPlayerList()
     {
         try
         {
@@ -24,7 +24,30 @@ public static class API
                 PlayerList_Team1.Clear();
                 PlayerList_Team2.Clear();
 
+                var RespJson_Bf1 = new RespJson();
+
+                RespJson_Bf1.ServerName = Memory.ReadString(Memory.GetBaseAddress() + Offsets.ServerName_Offset, Offsets.ServerName, 64);
+                RespJson_Bf1.GameId = Memory.Read<long>(Memory.GetBaseAddress() + Offsets.GameId_Offset, Offsets.GameId);
+
                 var _serverTime = Memory.Read<float>(Memory.GetBaseAddress() + Offsets.ServerTime_Offset, Offsets.ServerTime);
+                RespJson_Bf1.ServerTime = PlayerUtil.SecondsToMMSS(_serverTime);
+
+                var _sOffset0 = Memory.Read<long>(Memory.GetBaseAddress() + Offsets.ServerScore_Offset, Offsets.ServerScoreTeam);
+                // 队伍1分数
+                RespJson_Bf1.ScoreTeam1 = new RespJson.ScoreInfo()
+                {
+                    Current = Memory.Read<int>(_sOffset0 + 0x2B0),
+                    FromeKill = Memory.Read<int>(_sOffset0 + 0x2B0 + 0x60),
+                    FromeFlag = Memory.Read<int>(_sOffset0 + 0x2B0 + 0x100)
+                };
+
+                // 队伍2分数
+                RespJson_Bf1.ScoreTeam2 = new RespJson.ScoreInfo()
+                {
+                    Current = Memory.Read<int>(_sOffset0 + 0x2B8),
+                    FromeKill = Memory.Read<int>(_sOffset0 + 0x2B0 + 0x68),
+                    FromeFlag = Memory.Read<int>(_sOffset0 + 0x2B0 + 0x108)
+                };
 
                 //////////////////////////////// 玩家数据 ////////////////////////////////
 
@@ -75,6 +98,9 @@ public static class API
                     {
                         PlayerList_All.Add(new PlayerData()
                         {
+                            Admin = "",
+                            VIP = "",
+
                             Mark = _mark,
                             TeamId = _teamId,
                             Spectator = _spectator,
@@ -157,8 +183,13 @@ public static class API
                 PlayerList_Team1.Sort((a, b) => b.Score.CompareTo(a.Score));
                 PlayerList_Team2.Sort((a, b) => b.Score.CompareTo(a.Score));
 
+                RespJson_Bf1.PlayerListTeam0 = PlayerList_Team0;
+                RespJson_Bf1.PlayerListTeam1 = PlayerList_Team1;
+                RespJson_Bf1.PlayerListTeam2 = PlayerList_Team2;
+
                 Memory.CloseHandle();
-                return "成功";
+
+                return RespJson_Bf1;
             }
             else
             {
