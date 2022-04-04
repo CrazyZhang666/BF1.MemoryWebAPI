@@ -189,15 +189,18 @@ public static class API
 
                 Memory.CloseHandle();
 
+                Results.StatusCode(200);
                 return RespJson_Bf1;
             }
             else
             {
+                Results.StatusCode(400);
                 return "战地1内存模块初始化失败";
             }
         }
         catch (Exception ex)
         {
+            Results.StatusCode(500);
             return $"异常：{ex.Message}";
         }
     }

@@ -11,7 +11,10 @@ app.Urls.Add($"http://{CoreUtil.GetLocalIP()}:2333");
 Console.Title = CoreUtil.MainAppWindowName + CoreUtil.ClientVersionInfo
      + " - 最后编译时间 : " + CoreUtil.ClientBuildTime;
 
-Console.WriteLine($"本地IP地址：http://{CoreUtil.GetLocalIP()}:2333");
+Console.WriteLine($"本地IP地址\t\t:  http://{CoreUtil.GetLocalIP()}");
+Console.WriteLine();
+Console.WriteLine($"主路由\t\t\t:  GET  http://{CoreUtil.GetLocalIP()}:2333");
+Console.WriteLine($"获取玩家列表路由\t:  GET  http://{CoreUtil.GetLocalIP()}:2333/getPlayerList");
 Console.WriteLine();
 
 // 主路由
